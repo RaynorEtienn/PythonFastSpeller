@@ -1,7 +1,7 @@
 Raynor 0.2
 Logan 0.42
 Raynor 0.2
-coco 0.34
+Coco 0.34
 Coco 0.29
 clem 1.25
 clem 0.34
@@ -16,3 +16,4 @@ Raynor 0.2
 Raynor 0.23
 Raynor 0.23
 Raynor 0.17
+Raynor 0.21

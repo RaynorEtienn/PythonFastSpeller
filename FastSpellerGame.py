@@ -7,12 +7,16 @@ Created on Wed Oct  4 15:21:51 2023
 
 '''
 Upgrades : 
-    Timer at beginning
     Error go back
 '''
 
-
 # imports
+
+
+# functions
+
+
+
 
 import time
 import random
@@ -20,10 +24,6 @@ import keyboard
 import os
 import numpy as np
 from operator import itemgetter
-
-
-# functions
-
 def getData(filename, data):
     with open(filename, 'r') as myData:
         for line in myData:
@@ -36,20 +36,29 @@ def writeData(filename, data):
             myData.write(f'{nickname} {score}\n')
 
 
-def showHighScores(nickname=None):
+def showHighScores(nickname=None, bad=False):
     tempVariable = []
     getData('HIGH_SCORES_TABLE.txt', tempVariable)
     tempVariable = cleanHighScores(tempVariable)
-    tempVariable = sorted(tempVariable, key=itemgetter(1))
-
-    if nickname != None:
-        tempVariable = elementsIn(
-            tempVariable, condition=lambda element: element[0] == nickname)
-        print("Your high scores : \n")
-        displayHighScores(tempVariable)
+    tempVariable = sorted(tempVariable, key=itemgetter(1), reverse=bad)
+    if not bad:
+        if nickname != None:
+            tempVariable = elementsIn(
+                tempVariable, condition=lambda element: element[0] == nickname)
+            print("Your high scores : \n")
+            displayHighScores(tempVariable)
+        else:
+            print("The best-of all :\n")
+            displayHighScores(tempVariable)
     else:
-        print("The best-of all :\n")
-        displayHighScores(tempVariable)
+        if nickname != None:
+            tempVariable = elementsIn(
+                tempVariable, condition=lambda element: element[0] == nickname)
+            print("Your worst scores : \n")
+            displayHighScores(tempVariable)
+        else:
+            print("The worst-of all :\n")
+            displayHighScores(tempVariable)
 
 
 def cleanHighScores(array):
@@ -140,16 +149,17 @@ def rules():
             print("\t- you have to rewrite the sentence")
             print("\t- punctuation marks are not asked, EXCEPT spaces")
             print("\t- majuscule and minuscule are different letters\n")
-            
+
             answer = str(input("Did you get it ? (Y/N) : "))
-            
+
             if answer != 'Y':
                 raise ValueError
                 clear()
             break
 
         except:
-            print("\n\nThen ask Raynor (aka Romain ETIENNE) or another player of this game.\n\n")
+            print(
+                "\n\nThen ask Raynor (aka Romain ETIENNE) or another player of this game.\n\n")
             time.sleep(2)
             clear()
     clear()
@@ -163,7 +173,7 @@ HIGH_SCORES_TABLE = []
 NICKNAME = None
 
 if __name__ == '__main__':
-    
+
     clear()
     visibility('#')
 
@@ -237,7 +247,9 @@ if __name__ == '__main__':
         writeData('HIGH_SCORES_TABLE.txt', HIGH_SCORES_TABLE)
 
     showHighScores(nickname=NICKNAME)
+
     if NICKNAME != None:
         showHighScores()
+        showHighScores(bad=True)
 
     visibility('#')
