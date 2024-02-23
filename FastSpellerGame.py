@@ -11,19 +11,14 @@ Upgrades :
 '''
 
 # imports
-
-
-# functions
-
-
-
-
 import time
 import random
 import keyboard
 import os
 import numpy as np
 from operator import itemgetter
+
+# functions
 def getData(filename, data):
     with open(filename, 'r') as myData:
         for line in myData:
